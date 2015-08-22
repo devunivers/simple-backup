@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+'use strict';
+
+var program  = require('commander'),
+  path = require('path'),
+  osenv = require('osenv'),
+  opts = {
+    path: osenv.home() + path.sep + '.simple-backup'
+  };
+
+require('autocmdr/lib/logger')(program);
+require('autocmdr/lib/package')(program);
+require('autocmdr/lib/config')(program, opts);
+require('autocmdr/lib/help')(program);
+require('autocmdr/lib/loader')(program);
+
+program.parse(process.argv);
+
+if (program.args.length < 1 ) {
+  console.log('No command specified. See \'simple-backup --help\':');
+  program.outputHelp();
+  process.exit(1);
+}
