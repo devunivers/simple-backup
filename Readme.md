@@ -30,3 +30,5 @@ A simple script to backup a directory and timestamp it.
   * `npm test`
 * Coverage report
   * `npm run coverage`
+
+[![Build Status](https://travis-ci.org/kherrick/simple-backup.svg?branch=master)](https://travis-ci.org/kherrick/simple-backup)
