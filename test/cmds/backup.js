@@ -1,45 +1,35 @@
 'use strict';
 
-var assert = require('assert');
-var exec = require('child_process').exec;
-var path = require('path');
+import assert from 'assert';
+import path from 'path';
+import { exec } from 'child_process';
 
-describe('simple-backup', function() {
-	var cmd = 'node ' + path.join(__dirname, '../../bin/simple-backup') + ' ';
-	console.log(cmd);
+describe('simple-backup', () => {
+  const cmd = `node_modules/.bin/babel-node ${path.join(__dirname, '../../src/bin/simple-backup')} `;
 
-	it('--help should run without errors', function(done) {
-		exec(cmd + '--help', function (error) {
-			assert(!error);
-			done();
-		});
-	});
+  it('--help should run without errors', () => {
+    exec(`${cmd} --help`, (error) => {
+      assert(!error);
+    });
+  });
 
-	it('--version should run without errors', function(done) {
-		exec(cmd + '--version', function (error) {
-			assert(!error);
-			done();
-		});
-	});
+  it('--version should run without errors', () => {
+    exec(`${cmd} --version`, (error) => {
+      assert(!error);
+    });
+  });
 
-	it('should return error on missing command', function(done) {
-        this.timeout(4000);
+  it('should return error on missing command', () => {
+    exec(cmd, (error) => {
+      assert(error);
+      assert.equal(error.code, 1);
+    });
+  });
 
-		exec(cmd, function (error) {
-			assert(error);
-			assert.equal(error.code,1);
-			done();
-		});
-
-	});
-
-	it('should return error on unknown command', function(done) {
-        this.timeout(4000);
-
-		exec(cmd + 'junkcmd', function (error) {
-			assert(error);
-			assert.equal(error.code,1);
-			done();
-		});
-	});
+  it('should return error on unknown command', () => {
+    exec(`${cmd} junkcmd`, (error) => {
+      assert(error);
+      assert.equal(error.code, 1);
+    });
+  });
 });

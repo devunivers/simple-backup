@@ -1,0 +1,24 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "node": true
+  },
+  "extends": [ "strict" ],
+  "plugins": [ "filenames" ],
+  "rules": {
+    "newline-after-var": 0,
+    "prefer-const": 0,
+    "no-console": 0,
+    "no-invalid-this": 0,
+    "comma-dangle": 0,
+    "spaced-comment": 0,
+    "no-process-exit": 0,
+    "id-length": 0,
+    "id-match": 0,
+    "filenames/filenames": 0
+  },
+  "globals": {
+    "describe": true,
+    "it": true
+  }
+}

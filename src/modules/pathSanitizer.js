@@ -1,9 +1,9 @@
-module.exports = function(shell, source, destination) {
-  'use strict';
-
+export default (shell, source, destination) => {
+  //strip ending slashes from the path
   function stripTrailingSlashes(path) {
-    //strip ending slashes from the path
-    if (path.slice(-1) === '/' && path.length > 1) {
+    const lastChar = -1;
+
+    if (path.slice(lastChar) === '/' && path.length > 1) {
       path = path.substring(0, path.length - 1);
     }
 
@@ -13,8 +13,8 @@ module.exports = function(shell, source, destination) {
   return {
     source: stripTrailingSlashes(source),
     destination: stripTrailingSlashes(destination),
-    areValid: function() {
-      var paths = [
+    areValid() {
+      const paths = [
         {
           'type': 'source',
           'directory': this.source
@@ -25,19 +25,19 @@ module.exports = function(shell, source, destination) {
         }
       ];
 
-      var arePathsValid = paths.every(function (value) {
-        var directory = value.directory,
-          type = value.type;
+      const arePathsValid = paths.every((value) => {
+        const directory = value.directory;
+        const type = value.type;
 
         //check to make sure the directories exists
         if (typeof directory !== 'string') {
-          console.log('You have not supplied a ' + type + ' directory.');
+          console.log(`You have not supplied a ${type} directory.`);
 
           return false;
         }
 
         if (!shell.test('-d', directory)) {
-          console.log('the ' + type + ' directory: "' + directory + '" doesn\'t exist.');
+          console.log(`the ${type} directory: "${directory}" doesn't exist.`);
 
           return false;
         }
@@ -47,7 +47,7 @@ module.exports = function(shell, source, destination) {
 
       //final checks on the paths here...
       if (paths[0].directory === paths[1].directory) {
-        console.log('You cannot backup the directory "' + paths[0].directory + '" to itself.');
+        console.log(`You cannot backup the directory "${paths[0].directory}" to itself.`);
 
         return false;
       }
